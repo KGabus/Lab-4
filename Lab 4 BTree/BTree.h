@@ -15,13 +15,15 @@ struct BTreeNode
 	bool isLeaf = false;
 };
 
+using namespace std;
+
 class BTree
 {
 public:
 	BTree(std::string filePath);
 	~BTree();
 	
-	void insert(char input[MAXWORDSIZE]);
+	void insert(char insertKey[MAXWORDSIZE]);
 	int getTotalWordCount();
 	int getTreeHeight();
 	int getNodeCount();
@@ -36,5 +38,8 @@ private:
 
 	fstream BTreeFile;
 
+	void writeNode(BTreeNode node);
+	BTreeNode readNode(int nodeNumber);
+	void insertKey(char insertKey[MAXWORDSIZE]);
 	void splitChild(BTreeNode parentNode, int keyPosition);
 };

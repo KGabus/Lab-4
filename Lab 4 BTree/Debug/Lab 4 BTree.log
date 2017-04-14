@@ -1,10 +1,3 @@
 ﻿  BTree.cpp
-c:\users\kaylee\documents\cse stuff\eecs 2510 non linear\projects\lab 4 btree\lab 4 btree\btree.h(37): error C3646: 'BTreeFile': unknown override specifier
-c:\users\kaylee\documents\cse stuff\eecs 2510 non linear\projects\lab 4 btree\lab 4 btree\btree.h(37): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
-c:\users\kaylee\documents\cse stuff\eecs 2510 non linear\projects\lab 4 btree\lab 4 btree\btree.cpp(8): error C2065: 'BTreeFile': undeclared identifier
-c:\users\kaylee\documents\cse stuff\eecs 2510 non linear\projects\lab 4 btree\lab 4 btree\btree.cpp(8): error C2228: left of '.open' must have class/struct/union
-  c:\users\kaylee\documents\cse stuff\eecs 2510 non linear\projects\lab 4 btree\lab 4 btree\btree.cpp(8): note: type is 'unknown-type'
-c:\users\kaylee\documents\cse stuff\eecs 2510 non linear\projects\lab 4 btree\lab 4 btree\btree.cpp(10): error C2065: 'BTreeFile': undeclared identifier
-c:\users\kaylee\documents\cse stuff\eecs 2510 non linear\projects\lab 4 btree\lab 4 btree\btree.cpp(10): error C2228: left of '.fail' must have class/struct/union
-  c:\users\kaylee\documents\cse stuff\eecs 2510 non linear\projects\lab 4 btree\lab 4 btree\btree.cpp(10): note: type is 'unknown-type'
-c:\users\kaylee\documents\cse stuff\eecs 2510 non linear\projects\lab 4 btree\lab 4 btree\btree.cpp(11): error C2065: 'cout': undeclared identifier
+  Lab 4 BTree.vcxproj -> C:\Users\Kaylee\Documents\CSE stuff\EECS 2510 Non Linear\Projects\Lab 4 BTree\Debug\Lab 4 BTree.exe
+  Lab 4 BTree.vcxproj -> C:\Users\Kaylee\Documents\CSE stuff\EECS 2510 Non Linear\Projects\Lab 4 BTree\Debug\Lab 4 BTree.pdb (Full PDB)
