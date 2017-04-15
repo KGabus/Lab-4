@@ -11,7 +11,7 @@ Purpose: Defines the entry point for the console application.
 #include <fstream>
 #include <ctime>
 #include "DiskAVL.h"
-//todo: comment the living fuck out og everything
+//todo: comment everything
 using namespace std;
 
 string filePath = "C:\\Users\\Kaylee\\Desktop\\Text Files\\shakespeare.txt";		//set input file path here

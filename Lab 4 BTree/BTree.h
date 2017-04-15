@@ -2,16 +2,16 @@
 #include <string>
 #include <fstream>
 
-#define KEYCAPACITY 3						//----------------------------Set number of keys per node here
+#define DEGREE 3						//----------------------------Set degree of tree here
 #define MAXWORDSIZE 50
 
 struct BTreeNode
 {
 	int nodeNumber = 0;
 	int keyCount = 0;
-	char keys[2 * KEYCAPACITY][MAXWORDSIZE] = { 0 };
-	int count[2 * KEYCAPACITY] = { 0 };
-	int children[2 * KEYCAPACITY + 1] = { 0 };
+	char keys[2 * DEGREE][MAXWORDSIZE] = { 0 };
+	int count[2 * DEGREE] = { 0 };
+	int children[2 * DEGREE + 1] = { 0 };
 	bool isLeaf = false;
 };
 
