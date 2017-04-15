@@ -11,6 +11,7 @@ Purpose: Defines the entry point for the console application.
 #include <fstream>
 #include <ctime>
 #include "DiskAVL.h"
+#include "BTree.h"
 //todo: comment everything
 using namespace std;
 
@@ -30,6 +31,7 @@ int main()
 	//AVLTree AVL;
 	//BinarySearchTree BST;
 	DiskAVL AVL("C:\\Users\\Kaylee\\Desktop\\AVL Tree File.txt");
+	BTree BTree("C:\\Users\\Kaylee\\Desktop\\BTree File.txt");
 
 	char chari[50]; // assumes no word is longer than 49
 	int iPtr;
@@ -68,7 +70,7 @@ int main()
 				WasDelimiter = true;
 				if (i == 0);		//do nothing, used to collect overhead time info
 				if (i == 1) AVL.insert(chari);  	// insert it in the AVL Tree 
-													//		if (i == 3) RBT.insert(chari);  	// insert this word in the RBT 
+				if (i == 2) BTree.insert(chari);
 
 				for (int i = 0; i < sizeof(chari); i++) chari[i] = '\0'; // zero the word         
 				iPtr = 0;
@@ -91,6 +93,7 @@ int main()
 		{	//save and output the times for each run
 		case 0: overheadTime = elapsedTime; cout << overheadTime << "\nStarting AVL: "; break;
 		case 1: cout << elapsedTime - overheadTime << "s\tTree Height: " << AVL.getTreeHeight() << "\tNodes: " << AVL.getNodeCount() << "\tTotal Words: "; words = AVL.getTotalWordCount(); cout << words << "\nStarting BTree: "; break;
+		case 2: cout << elapsedTime - overheadTime << "s\tTree Height: " << BTree.getTreeHeight() << "\tNodes: " << BTree.getNodeCount() << "\tTotal Words: "; words = BTree.getTotalWordCount(); cout << words; break;
 			//case 1: BSTTime = elapsedTime - overheadTime; cout << "Starting AVL." << endl; break;
 			//case 2: AVLTime = elapsedTime - overheadTime; cout << "Starting RBT." << endl; break;
 			//case 3: RBTTime = elapsedTime - overheadTime; cout << endl; break;
