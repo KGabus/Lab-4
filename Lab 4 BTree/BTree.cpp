@@ -26,17 +26,20 @@ void BTree::insert(char insertWord[MAXWORDSIZE])
 
 int BTree::getTotalWordCount()
 {//todo: total word count
-	return 0;
+	return totalWordsCount;
 }
 
 int BTree::getTreeHeight()
 {//todo: tree height
-	return 0;
+	if (treeRoot == 0) return 0;
+	
+	findTreeHeight(readNode(treeRoot), 0);
+	return treeHeight;
 }
 
 int BTree::getNodeCount()
 {//todo: node count
-	return 0;
+	return nodeCount;
 }
 
 void BTree::writeNode(BTreeNode node)
@@ -64,13 +67,13 @@ BTreeNode BTree::readNode(int nodeNumber)
 
 void BTree::insertKey(char insertKey[MAXWORDSIZE])
 {	//todo: comment here
-	
+	totalWordsCount++;
 
 	if (treeRoot == 0)
 	{	//if he tree is empty, make a new node, set it as the root, and return
 		BTreeNode rootNode;
 
-		rootNode.count[1] = 1;
+		rootNode.counts[1] = 1;
 		treeRoot = rootNode.nodeNumber = 1;
 		rootNode.isLeaf = true;
 		strcpy_s(rootNode.keys[1], insertKey);
@@ -103,7 +106,7 @@ void BTree::insertKey(char insertKey[MAXWORDSIZE])
 }
 
 void BTree::insertKeyNonFull(BTreeNode node, char insertKey[MAXWORDSIZE])
-{	//todo: breaks here with stack overflow
+{
 	int keyPos = node.keyCount;
 
 	if (node.isLeaf)
@@ -111,12 +114,12 @@ void BTree::insertKeyNonFull(BTreeNode node, char insertKey[MAXWORDSIZE])
 		while (keyPos >= 1 && (strcmp(insertKey, node.keys[keyPos]) < 0))
 		{	//move all greater keys up one spot to make room for new key
 			strcpy_s(node.keys[keyPos + 1], node.keys[keyPos]);
-			node.count[keyPos + 1] = node.count[keyPos];
+			node.counts[keyPos + 1] = node.counts[keyPos];
 			keyPos--;
 		}
 
 		strcpy_s(node.keys[keyPos + 1], insertKey);		//add the key to the node
-		node.count[keyPos + 1] = 1;
+		node.counts[keyPos + 1] = 1;
 		node.keyCount++;
 		writeNode(node);
 	}
@@ -144,6 +147,9 @@ void BTree::splitChild(BTreeNode parentNode, int keyPosition)
 	//and copies the upper half of it's keys into the lower half of a new node
 	BTreeNode nodeToSplit = readNode(parentNode.children[keyPosition]);
 	BTreeNode newNode;
+
+	nodeCount++;
+
 	newNode.nodeNumber = nodeCount;
 	newNode.isLeaf = nodeToSplit.isLeaf;
 	newNode.keyCount = DEGREE - 1;			//this node will be half full as a result of gaining half of the other node's keys
@@ -151,7 +157,7 @@ void BTree::splitChild(BTreeNode parentNode, int keyPosition)
 	for (int keyPos = 1; keyPos <= DEGREE - 1; keyPos++)
 	{	//copy the upper half of the node to be split's keys into the new node
 		strcpy_s(newNode.keys[keyPos], nodeToSplit.keys[keyPos + DEGREE]);
-		newNode.count[keyPos] = nodeToSplit.count[keyPos + DEGREE];
+		newNode.counts[keyPos] = nodeToSplit.counts[keyPos + DEGREE];
 	}
 
 	if (newNode.isLeaf == false)
@@ -170,14 +176,28 @@ void BTree::splitChild(BTreeNode parentNode, int keyPosition)
 	for (int keyPos = parentNode.keyCount; keyPos >= keyPosition; keyPos--)
 	{	//move the keys to make room for the one that get moved up into the parent
 		strcpy_s(parentNode.keys[keyPos + 1], parentNode.keys[keyPos]);
-		parentNode.count[keyPos + 1] = parentNode.count[keyPos];		//move key counts with keys
+		parentNode.counts[keyPos + 1] = parentNode.counts[keyPos];		//move key counts with keys
 	}
 
 	strcpy_s(parentNode.keys[keyPosition], nodeToSplit.keys[DEGREE]);	//move the center key into the parent node
-	parentNode.count[keyPosition] = nodeToSplit.count[DEGREE];
+	parentNode.counts[keyPosition] = nodeToSplit.counts[DEGREE];
 	parentNode.keyCount++;
 
 	writeNode(parentNode);			
 	writeNode(nodeToSplit);
 	writeNode(newNode);
+}
+
+void BTree::findTreeHeight(BTreeNode node, int height)
+{
+	treeHeight = 0;
+	//for (int countPos = 1; countPos <= node.keyCount; countPos++)		//add the key counts for each node to the running sum
+	//	totalWordsCount += node.counts[countPos];
+
+
+	while (!node.isLeaf)
+	{	//since all leaf nodes have the sam height, this doesn't need to be recursive
+		node = readNode(node.children[1]);
+		treeHeight++;
+	}
 }

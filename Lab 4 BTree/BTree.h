@@ -2,7 +2,7 @@
 #include <string>
 #include <fstream>
 
-#define DEGREE 3						//----------------------------Set degree of tree here
+#define DEGREE 2						//----------------------------Set degree of tree here
 #define MAXWORDSIZE 50
 
 struct BTreeNode
@@ -10,7 +10,7 @@ struct BTreeNode
 	int nodeNumber = 0;
 	int keyCount = 0;
 	char keys[2 * DEGREE][MAXWORDSIZE] = { 0, 0 };
-	int count[2 * DEGREE] = { 0 };
+	int counts[2 * DEGREE] = { 0 };
 	int children[2 * DEGREE + 1] = { 0 };
 	bool isLeaf = false;
 };
@@ -45,4 +45,5 @@ private:
 	void insertKey(char insertKey[MAXWORDSIZE]);
 	void insertKeyNonFull(BTreeNode node, char insertKey[MAXWORDSIZE]);
 	void splitChild(BTreeNode parentNode, int keyPosition);
+	void findTreeHeight(BTreeNode node, int height);
 };

@@ -93,7 +93,7 @@ void DiskAVL::insertKey(char keyToInsert[50])
 
 		nodeA.nodeNumber = 1;
 		nodeA.BF = 0;
-		nodeA.count = 1;
+		nodeA.counts = 1;
 		strcpy_s(nodeA.key, keyToInsert);
 		nodeA.LeftChild = 0;
 		nodeA.RightChild = 0;
@@ -119,7 +119,7 @@ void DiskAVL::insertKey(char keyToInsert[50])
 	{// search tree for insertion point
 		if (strcmp(keyToInsert, nodeA.key) == 0)
 		{	//if the node if found, increment it's count
-			nodeA.count++;
+			nodeA.counts++;
 			writeNode(nodeA);
 			return;
 		}
@@ -304,7 +304,7 @@ void DiskAVL::insertKey(char keyToInsert[50])
 
 void DiskAVL::findTreeHeight(DiskAVLNode node, int height)
 {
-	totalWordsCount += node.count;
+	totalWordsCount += node.counts;
 	if (node.LeftChild != 0)
 		findTreeHeight(readNode(node.LeftChild), height + 1);
 

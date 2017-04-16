@@ -16,7 +16,7 @@ struct DiskAVLNode
 	int nodeNumber = 0;
 	char key[50];
 	int BF = 0;
-	int count = 1;
+	int counts = 1;
 	int LeftChild = 0;
 	int RightChild = 0;
 
