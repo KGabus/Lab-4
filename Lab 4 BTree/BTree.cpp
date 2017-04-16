@@ -25,21 +25,28 @@ void BTree::insert(char insertWord[MAXWORDSIZE])
 }
 
 int BTree::getTotalWordCount()
-{//todo: total word count
+{
 	return totalWordsCount;
 }
 
 int BTree::getTreeHeight()
-{//todo: tree height
-	if (treeRoot == 0) return 0;
+{
+	if (treeRoot == 0 && totalWordsCount == 0) return 0;
 	
 	findTreeHeight(readNode(treeRoot), 0);
 	return treeHeight;
 }
 
 int BTree::getNodeCount()
-{//todo: node count
+{
 	return nodeCount;
+}
+
+double BTree::getLoadingFactor()
+{
+	double loadingFactor = ((DEGREE * 2) - 1) * nodeCount;
+	loadingFactor = (uniqueWords / loadingFactor) * 100;
+	return loadingFactor;
 }
 
 void BTree::writeNode(BTreeNode node)
@@ -54,7 +61,7 @@ void BTree::writeNode(BTreeNode node)
 }
 
 BTreeNode BTree::readNode(int nodeNumber)
-{	//todo: breaks here with access violation
+{
 	BTreeNode node;
 	
 	BTreeFile.seekg(nodeNumber * sizeof(BTreeNode));
@@ -88,11 +95,22 @@ void BTree::insertKey(char insertKey[MAXWORDSIZE])
 
 	BTreeNode rootNode = readNode(treeRoot);
 
+	for (int keyPos = rootNode.keyCount; keyPos >= 1; keyPos--)
+	{	//check to see if key is present in root
+		if (strcmp(rootNode.keys[keyPos], insertKey) == 0)
+		{	//increment its count and return
+			rootNode.counts[keyPos]++;
+			writeNode(rootNode);
+			return;
+		}
+	}
+	//todo: uncomment this
 	if (rootNode.keyCount == 2 * DEGREE - 1)
 	{	//if the root is full, split it
-		nodeCount++;
-
 		BTreeNode newRoot;
+		
+		nodeCount++;
+				
 		newRoot.nodeNumber = nodeCount;
 		newRoot.isLeaf = false;
 		newRoot.keyCount = 0;
@@ -100,6 +118,7 @@ void BTree::insertKey(char insertKey[MAXWORDSIZE])
 		treeRoot = newRoot.nodeNumber;
 
 		splitChild(newRoot, 1);					//split the old root
+		newRoot = readNode(newRoot.nodeNumber); //read the adjusted node back into RAM
 		insertKeyNonFull(newRoot, insertKey);
 	}
 	else insertKeyNonFull(rootNode, insertKey);		//otherwise insert into the root 
@@ -122,16 +141,29 @@ void BTree::insertKeyNonFull(BTreeNode node, char insertKey[MAXWORDSIZE])
 		node.counts[keyPos + 1] = 1;
 		node.keyCount++;
 		writeNode(node);
+
+		uniqueWords++;
 	}
 	else	//todo: somwhere in here the check for a duplicate key needs to happen
 	{	//traverse until a leaf is found
-		while (keyPos >= 1 && strcmp(insertKey, node.keys[keyPos]))
-			keyPos--;			//while the key to insert is less than the current key, keep comparing unit it's not or we run out of keys
+		while (keyPos >= 1 && strcmp(insertKey, node.keys[keyPos]) < 0)
+			keyPos--;			//while the key to insert is less than the current key, keep comparing until it's not or we run out of keys
 
 		keyPos++;
 
 		// todo: this is probs where the duplicate check should happen
-		if (readNode(node.children[keyPos]).keyCount == (2 * DEGREE - 1))
+		BTreeNode possibleInsertNode = readNode(node.children[keyPos]);
+		for (int keyPos = possibleInsertNode.keyCount; keyPos >= 1; keyPos--)
+		{	//check to see if key is present in node
+			if (strcmp(possibleInsertNode.keys[keyPos], insertKey) == 0)
+			{	//increment its count and return
+				possibleInsertNode.counts[keyPos]++;
+				writeNode(possibleInsertNode);
+				return;
+			}
+		}
+		//todo: uncomment that
+		if (possibleInsertNode.keyCount == (2 * DEGREE - 1))
 		{	//if the node is full, split it
 			splitChild(node, keyPos);
 			node = readNode(node.nodeNumber);
@@ -167,7 +199,7 @@ void BTree::splitChild(BTreeNode parentNode, int keyPosition)
 	}
 
 	nodeToSplit.keyCount = DEGREE - 1;		//adjust the keycount to reflect the split
-	//todo: maybe revise this when I'm not too much in a hurry to figure it out
+
 	for (int childPos = parentNode.keyCount + 1; childPos >= keyPosition + 1; childPos--)
 		parentNode.children[childPos + 1] = parentNode.children[childPos];		//move the child references to make room for the new reference
 

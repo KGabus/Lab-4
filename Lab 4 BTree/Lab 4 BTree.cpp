@@ -15,7 +15,7 @@ Purpose: Defines the entry point for the console application.
 //todo: comment everything
 using namespace std;
 
-string filePath = "C:\\Users\\Kaylee\\Desktop\\Text Files\\shakespeare.txt";		//set input file path here
+string filePath = "C:\\Users\\Kaylee\\Desktop\\Text Files\\btree example.txt";		//set input file path here
 
 double elapsedTime;
 double overheadTime;
@@ -93,7 +93,7 @@ int main()
 		{	//save and output the times for each run
 		case 0: overheadTime = elapsedTime; cout << overheadTime << "\nStarting AVL: "; break;
 		case 1: cout << elapsedTime - overheadTime << "s\tTree Height: " << AVL.getTreeHeight() << "\tNodes: " << AVL.getNodeCount() << "\tTotal Words: "; words = AVL.getTotalWordCount(); cout << words << "\nStarting BTree: "; break;
-		case 2: cout << elapsedTime - overheadTime << "s\tTree Height: " << BTree.getTreeHeight() << "\tNodes: " << BTree.getNodeCount() << "\tTotal Words: "; words = BTree.getTotalWordCount(); cout << words; break;
+		case 2: cout << elapsedTime - overheadTime << "s\tTree Height: " << BTree.getTreeHeight() << "\tNodes: " << BTree.getNodeCount() << "\tTotal Words: "; words = BTree.getTotalWordCount(); cout << words << " Loading Factor: " << BTree.getLoadingFactor(); break;
 			//case 1: BSTTime = elapsedTime - overheadTime; cout << "Starting AVL." << endl; break;
 			//case 2: AVLTime = elapsedTime - overheadTime; cout << "Starting RBT." << endl; break;
 			//case 3: RBTTime = elapsedTime - overheadTime; cout << endl; break;

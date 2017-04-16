@@ -27,11 +27,13 @@ public:
 	int getTotalWordCount();
 	int getTreeHeight();
 	int getNodeCount();
+	double getLoadingFactor();
 	
 private:
 	int nodeCount = 0;
 	int readCount = 0;
 	int writeCount = 0;
+	int uniqueWords = 0;
 	int totalWordsCount = 0;
 	int treeHeight = 0;
 	int currentHeight = 0;
