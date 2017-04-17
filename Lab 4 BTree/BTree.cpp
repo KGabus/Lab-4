@@ -215,7 +215,7 @@ void BTree::splitChild(BTreeNode parentNode, int keyPosition)
 	parentNode.counts[keyPosition] = nodeToSplit.counts[DEGREE];
 	parentNode.keyCount++;
 
-	writeNode(parentNode);			
+	writeNode(parentNode);					//write the adjusted nodes back to the file
 	writeNode(nodeToSplit);
 	writeNode(newNode);
 }
@@ -223,13 +223,12 @@ void BTree::splitChild(BTreeNode parentNode, int keyPosition)
 void BTree::findTreeHeight(BTreeNode node, int height)
 {
 	treeHeight = 0;
-	//for (int countPos = 1; countPos <= node.keyCount; countPos++)		//add the key counts for each node to the running sum
-	//	totalWordsCount += node.counts[countPos];
-
 
 	while (!node.isLeaf)
-	{	//since all leaf nodes have the sam height, this doesn't need to be recursive
+	{	//since all leaf nodes have the same height, this doesn't need to be recursive
 		node = readNode(node.children[1]);
 		treeHeight++;
 	}
+
+	treeHeight++;		//counts leaf level
 }

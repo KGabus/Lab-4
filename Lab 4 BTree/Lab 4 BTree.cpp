@@ -15,7 +15,7 @@ Purpose: Defines the entry point for the console application.
 //todo: comment everything
 using namespace std;
 
-string filePath = "C:\\Users\\Kaylee\\Desktop\\Text Files\\btree example.txt";		//set input file path here
+string filePath = "C:\\Users\\Kaylee\\Desktop\\Text Files\\months.txt";		//set input file path here
 
 double elapsedTime;
 double overheadTime;

@@ -39,7 +39,7 @@ int DiskAVL::getTreeHeight()
 	int reads = readCount;		//save the previous values so they only reflect tree building 
 	int writes = writeCount;
 	
-	findTreeHeight(readNode(treeRoot), 0);		//sets total number of words and tree height
+	findTreeHeight(readNode(treeRoot), 1);		//sets total number of words and tree height
 
 	readCount = reads;			//restore previous values
 	writeCount = writes;

@@ -1,4 +1,4 @@
-﻿  Lab 4 BTree.cpp
-c:\users\kaylee\documents\cse stuff\eecs 2510 non linear\projects\lab 4 btree\lab 4 btree\lab 4 btree.cpp(71): warning C4390: ';': empty controlled statement found; is this the intent?
+﻿  DiskAVL.cpp
+c:\users\kaylee\documents\cse stuff\eecs 2510 non linear\projects\lab 4 btree\lab 4 btree\diskavl.cpp(87): warning C4101: 'C': unreferenced local variable
   Lab 4 BTree.vcxproj -> C:\Users\Kaylee\Documents\CSE stuff\EECS 2510 Non Linear\Projects\Lab 4 BTree\Debug\Lab 4 BTree.exe
   Lab 4 BTree.vcxproj -> C:\Users\Kaylee\Documents\CSE stuff\EECS 2510 Non Linear\Projects\Lab 4 BTree\Debug\Lab 4 BTree.pdb (Full PDB)
