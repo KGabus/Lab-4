@@ -7,6 +7,7 @@ Purpose: Defines the entry point for the console application.
 
 #include "stdafx.h"
 #include <iostream>
+#include <iomanip>
 #include <string>
 #include <fstream>
 #include <ctime>
@@ -27,11 +28,10 @@ clock_t startTime;
 int main()
 {
 	char c;
-	//RBTree RBT;
-	//AVLTree AVL;
-	//BinarySearchTree BST;
 	DiskAVL AVL("C:\\Users\\Kaylee\\Desktop\\AVL Tree File.txt");
 	BTree BTree("C:\\Users\\Kaylee\\Desktop\\BTree File.txt");
+
+	cout << "Current BTree Degree: " << DEGREE << endl;
 
 	char chari[50]; // assumes no word is longer than 49
 	int iPtr;
@@ -87,26 +87,24 @@ int main()
 			WasDelimiter = IsDelimiter;   // for the NEXT iteration     
 			inFile.get(c);
 		}
-		int words;		//todo: this is dumb remove it
+		
 		elapsedTime = (double)(clock() - startTime) / CLOCKS_PER_SEC;
+
 		switch (i)
-		{	//save and output the times for each run
+		{	//output runtimes for the trees
 		case 0: overheadTime = elapsedTime; cout << overheadTime << "\nStarting AVL: "; break;
-		case 1: cout << elapsedTime - overheadTime << "s\tTree Height: " << AVL.getTreeHeight() << "\tNodes: " << AVL.getNodeCount() << "\tTotal Words: "; words = AVL.getTotalWordCount(); cout << words << "\nStarting BTree: "; break;
-		case 2: cout << elapsedTime - overheadTime << "s\tTree Height: " << BTree.getTreeHeight() << "\tNodes: " << BTree.getNodeCount() << "\tTotal Words: "; words = BTree.getTotalWordCount(); cout << words << " Loading Factor: " << BTree.getLoadingFactor(); break;
-			//case 1: BSTTime = elapsedTime - overheadTime; cout << "Starting AVL." << endl; break;
-			//case 2: AVLTime = elapsedTime - overheadTime; cout << "Starting RBT." << endl; break;
-			//case 3: RBTTime = elapsedTime - overheadTime; cout << endl; break;
+		case 1: cout << elapsedTime - overheadTime << "s runtime. \nStarting BTree: "; AVL.collectTreeMetrics();  break;
+		case 2: cout << elapsedTime - overheadTime << "s runtime." << endl; BTree.collectTreeMetrics(); break;
 		}
 
 	}
 	inFile.close();
 
-	//cout << "     Time:     Nodes:     Words:     Height:     Comparisons:     Pointer Changes:     Other:" << endl;
-	//printf("BST: %2.3f%*d%*d%*d%*d%*d\n", BSTTime, 10, BST.getNodeCount(), 12, BST.getTotalWordCount(), 10, BST.getTreeHeight(), 15, BST.getComparisons(), 15, BST.getPointerChanges());
-	//printf("AVL: %2.3f%*d%*d%*d%*d%*d%*d\n", AVLTime, 10, AVL.getNodeCount(), 12, AVL.getTotalWordCount(), 10, AVL.getTreeHeight(), 15, AVL.getComparisons(), 15, AVL.getPointerChanges(), 20, AVL.getBFsAdjustedCount());
-	//printf("RBT: %2.3f%*d%*d%*d%*d%*d%*d\n", RBTTime, 10, RBT.getNodeCount(), 12, RBT.getTotalWordCount(), 10, RBT.getTreeHeight(), 15, RBT.getComparisons(), 15, RBT.getPointerChanges(), 20, RBT.getRecolourings());
-
+	cout << "Tree Statistics: \n" << endl;	
+	cout << setw(15) << "Nodes:" << setw(9) << "Words:" << setw(10) << "Height:" << setw(10) << "Reads:" << setw(10) << "Writes:" << setw(19) << "Loading Factor:" << endl;
+	cout << "AVL:   " << setw(7) << AVL.getNodeCount() << setw(10) << AVL.getTotalWordCount() << setw(10) << AVL.getTreeHeight() << setw(10) << AVL.getReads() << setw(10) << AVL.getWrites() << setw(19) << "n/a" << endl;
+	cout << "BTree: " << setw(7) << BTree.getNodeCount() << setw(10) << BTree.getTotalWordCount() << setw(10) << BTree.getTreeHeight() << setw(10) << BTree.getReads() << setw(10) << BTree.getWrites() << setw(18) << setprecision(2) << BTree.getLoadingFactor() << "%" << endl;
+	
 	return 0;
 }
 

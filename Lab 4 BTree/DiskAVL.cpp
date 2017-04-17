@@ -27,6 +27,24 @@ void DiskAVL::insert(char keyToInsert[50])
 	insertKey(keyToInsert);
 }
 
+void DiskAVL::collectTreeMetrics()
+{	//finds tree height, total word count, and file size
+	//read, write, and node counts are all set during tree building
+
+	if (treeRoot == 0) return;
+
+	int reads = readCount;		//save the previous values so they only reflect tree building 
+	int writes = writeCount;
+
+	findTreeHeight(readNode(treeRoot), 1);		//sets total number of words and tree height
+	
+	AVLFile.seekg(0, ios::end);
+	fileSize = AVLFile.tellg();		//returns file size in bytes
+
+	readCount = reads;			//restore previous values
+	writeCount = writes;
+}
+
 int DiskAVL::getTotalWordCount()
 {
 	return totalWordsCount;
@@ -34,15 +52,7 @@ int DiskAVL::getTotalWordCount()
 
 int DiskAVL::getTreeHeight()
 {
-	if (treeRoot == 0) return 0;
-
-	int reads = readCount;		//save the previous values so they only reflect tree building 
-	int writes = writeCount;
 	
-	findTreeHeight(readNode(treeRoot), 1);		//sets total number of words and tree height
-
-	readCount = reads;			//restore previous values
-	writeCount = writes;
 
 	return treeHeight;
 }
@@ -50,6 +60,16 @@ int DiskAVL::getTreeHeight()
 int DiskAVL::getNodeCount()
 {
 	return nodeCount;
+}
+
+int DiskAVL::getReads()
+{
+	return readCount;
+}
+
+int DiskAVL::getWrites()
+{
+	return writeCount;
 }
 
 void DiskAVL::writeNode(DiskAVLNode node)
@@ -69,7 +89,7 @@ DiskAVLNode DiskAVL::readNode(int readNodeNumber)
 		return node;
 
 	AVLFile.seekg(readNodeNumber * sizeof(DiskAVLNode));
-	AVLFile.read((char *)&node, sizeof(DiskAVLNode));
+	AVLFile.read((char*)&node, sizeof(DiskAVLNode));
 
 	readCount++;
 	return node;

@@ -27,7 +27,10 @@ public:
 	int getTotalWordCount();
 	int getTreeHeight();
 	int getNodeCount();
+	int getReads();
+	int getWrites();
 	double getLoadingFactor();
+	void collectTreeMetrics();
 	
 private:
 	int nodeCount = 0;
@@ -36,7 +39,8 @@ private:
 	int uniqueWords = 0;
 	int totalWordsCount = 0;
 	int treeHeight = 0;
-	int currentHeight = 0;
+	double loadingFactor = 0;
+	unsigned int fileSize = 0;
 
 	int treeRoot = 0;
 

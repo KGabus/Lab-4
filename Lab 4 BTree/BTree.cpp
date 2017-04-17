@@ -42,11 +42,40 @@ int BTree::getNodeCount()
 	return nodeCount;
 }
 
+int BTree::getReads()
+{
+	return readCount;
+}
+
+int BTree::getWrites()
+{
+	return writeCount;
+}
+
 double BTree::getLoadingFactor()
 {
 	double loadingFactor = ((DEGREE * 2) - 1) * nodeCount;
 	loadingFactor = (uniqueWords / loadingFactor) * 100;
 	return loadingFactor;
+}
+
+void BTree::collectTreeMetrics()
+{	//finds tree height, loading factor, and file size
+	//read, write, total word, and node counts are all set during tree building
+
+	if (treeRoot == 0) return;
+
+	int reads = readCount;		//save the previous values so they only reflect tree building 
+	int writes = writeCount;
+
+	findTreeHeight(readNode(treeRoot), 1);		//sets total number of words and tree height
+	//getLoadingFactor();
+
+	BTreeFile.seekg(0, ios::end);
+	fileSize = BTreeFile.tellg();		//returns file size in bytes
+
+	readCount = reads;			//restore previous values
+	writeCount = writes;
 }
 
 void BTree::writeNode(BTreeNode node)

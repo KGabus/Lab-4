@@ -31,9 +31,13 @@ public:
 	~DiskAVL();
 
 	void insert(char keyToInsert[50]);
+	void collectTreeMetrics();
 	int getTotalWordCount();
 	int getTreeHeight();
 	int getNodeCount();
+	int getReads();
+	int getWrites();
+
 
 	//todo: comment avl header
 private:
@@ -43,7 +47,7 @@ private:
 	int writeCount = 0;
 	int totalWordsCount = 0;
 	int treeHeight = 0;
-	int currentHeight = 0;
+	unsigned int fileSize = 0;
 
 	DiskAVLNode nodeA;
 	DiskAVLNode nodeB;
