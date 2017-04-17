@@ -14,8 +14,8 @@ Purpose: Defines the entry point for the console application.
 #include "BTree.h"
 //todo: comment everything
 using namespace std;
-
-string filePath = "C:\\Users\\Kaylee\\Desktop\\Text Files\\months.txt";		//set input file path here
+//todo: clean up and remove stuff from old project
+string filePath = "C:\\Users\\Kaylee\\Desktop\\Text Files\\shakespeare.txt";		//set input file path here
 
 double elapsedTime;
 double overheadTime;

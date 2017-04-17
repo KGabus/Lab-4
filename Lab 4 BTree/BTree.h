@@ -2,7 +2,7 @@
 #include <string>
 #include <fstream>
 
-#define DEGREE 2						//----------------------------Set degree of tree here
+#define DEGREE 5						//----------------------------Set degree of tree here
 #define MAXWORDSIZE 50
 
 struct BTreeNode
@@ -14,7 +14,7 @@ struct BTreeNode
 	int children[2 * DEGREE + 1] = { 0 };
 	bool isLeaf = false;
 };
-
+//todo: comment btree header
 using namespace std;
 
 class BTree

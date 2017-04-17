@@ -2,7 +2,7 @@
 #include <string>
 #include <iostream>
 #include "BTree.h"
-
+//todo: comment btree cpp
 using namespace std;
 
 BTree::BTree(std::string filePath)
@@ -144,7 +144,7 @@ void BTree::insertKeyNonFull(BTreeNode node, char insertKey[MAXWORDSIZE])
 
 		uniqueWords++;
 	}
-	else	//todo: somwhere in here the check for a duplicate key needs to happen
+	else
 	{	//traverse until a leaf is found
 		while (keyPos >= 1 && strcmp(insertKey, node.keys[keyPos]) < 0)
 			keyPos--;			//while the key to insert is less than the current key, keep comparing until it's not or we run out of keys
@@ -162,7 +162,7 @@ void BTree::insertKeyNonFull(BTreeNode node, char insertKey[MAXWORDSIZE])
 				return;
 			}
 		}
-		//todo: uncomment that
+
 		if (possibleInsertNode.keyCount == (2 * DEGREE - 1))
 		{	//if the node is full, split it
 			splitChild(node, keyPos);
