@@ -1,20 +1,25 @@
+/*BTree.h
+Kaylee Gabus
+EECS 2510 Spring 2017
+Purpose: Header file for Btree.*/
+
 #pragma once
 #include <string>
 #include <fstream>
 
 #define DEGREE 6						//----------------------------Set degree of tree here
-#define MAXWORDSIZE 50
+#define MAXWORDSIZE 50					//MAXWORDSIZE - 1 = the largest number of characters per each key
 
 struct BTreeNode
 {
 	int nodeNumber = 0;
 	int keyCount = 0;
 	char keys[2 * DEGREE][MAXWORDSIZE] = { 0, 0 };
-	int counts[2 * DEGREE] = { 0 };
+	int freqCounts[2 * DEGREE] = { 0 };
 	int children[2 * DEGREE + 1] = { 0 };
 	bool isLeaf = false;
 };
-//todo: comment btree header
+
 using namespace std;
 
 class BTree
@@ -33,6 +38,8 @@ public:
 	void collectTreeMetrics();
 	
 private:
+	int treeRoot = 0;
+
 	int nodeCount = 0;
 	int readCount = 0;
 	int writeCount = 0;
@@ -42,9 +49,6 @@ private:
 	double loadingFactor = 0;
 	unsigned int fileSize = 0;
 	string filePath = "";
-	
-
-	int treeRoot = 0;
 
 	fstream BTreeFile;
 

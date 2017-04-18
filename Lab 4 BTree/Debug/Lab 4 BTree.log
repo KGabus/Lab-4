@@ -2,11 +2,54 @@
   Lab 4 BTree.cpp
 c:\users\kaylee\documents\cse stuff\eecs 2510 non linear\projects\lab 4 btree\lab 4 btree\lab 4 btree.cpp(71): warning C4390: ';': empty controlled statement found; is this the intent?
   DiskAVL.cpp
-c:\users\kaylee\documents\cse stuff\eecs 2510 non linear\projects\lab 4 btree\lab 4 btree\diskavl.cpp(23): error C2065: 'filePath': undeclared identifier
-c:\users\kaylee\documents\cse stuff\eecs 2510 non linear\projects\lab 4 btree\lab 4 btree\diskavl.cpp(43): warning C4244: '=': conversion from 'std::streamoff' to 'unsigned int', possible loss of data
+c:\users\kaylee\documents\cse stuff\eecs 2510 non linear\projects\lab 4 btree\lab 4 btree\diskavl.cpp(45): warning C4244: '=': conversion from 'std::streamoff' to 'unsigned int', possible loss of data
+c:\users\kaylee\documents\cse stuff\eecs 2510 non linear\projects\lab 4 btree\lab 4 btree\diskavl.cpp(106): warning C4101: 'C': unreferenced local variable
   BTree.cpp
-c:\users\kaylee\documents\cse stuff\eecs 2510 non linear\projects\lab 4 btree\lab 4 btree\btree.cpp(20): error C2065: 'filepath': undeclared identifier
-c:\users\kaylee\documents\cse stuff\eecs 2510 non linear\projects\lab 4 btree\lab 4 btree\btree.cpp(21): error C2664: 'int remove(const char *)': cannot convert argument 1 from 'std::string' to 'const char *'
-  c:\users\kaylee\documents\cse stuff\eecs 2510 non linear\projects\lab 4 btree\lab 4 btree\btree.cpp(21): note: No user-defined-conversion operator available that can perform this conversion, or the operator cannot be called
-c:\users\kaylee\documents\cse stuff\eecs 2510 non linear\projects\lab 4 btree\lab 4 btree\btree.cpp(77): warning C4244: '=': conversion from 'std::streamoff' to 'unsigned int', possible loss of data
+c:\users\kaylee\documents\cse stuff\eecs 2510 non linear\projects\lab 4 btree\lab 4 btree\btree.cpp(84): warning C4244: '=': conversion from 'std::streamoff' to 'unsigned int', possible loss of data
   Generating Code...
+libcpmtd.lib(wlocale.obj) : error LNK2001: unresolved external symbol __free_dbg
+libcpmtd.lib(xlocale.obj) : error LNK2001: unresolved external symbol __free_dbg
+libcpmtd.lib(xwcsxfrm.obj) : error LNK2001: unresolved external symbol __free_dbg
+libcpmtd.lib(StlCompareStringA.obj) : error LNK2001: unresolved external symbol __free_dbg
+libcpmtd.lib(cout.obj) : error LNK2001: unresolved external symbol __free_dbg
+libcpmtd.lib(cin.obj) : error LNK2001: unresolved external symbol __free_dbg
+libcpmtd.lib(StlLCMapStringA.obj) : error LNK2001: unresolved external symbol __free_dbg
+libcpmtd.lib(locale.obj) : error LNK2001: unresolved external symbol __free_dbg
+BTree.obj : error LNK2001: unresolved external symbol __free_dbg
+DiskAVL.obj : error LNK2001: unresolved external symbol __free_dbg
+Lab 4 BTree.obj : error LNK2001: unresolved external symbol __free_dbg
+libcpmtd.lib(locale0.obj) : error LNK2001: unresolved external symbol __free_dbg
+libcpmtd.lib(wlocale.obj) : error LNK2001: unresolved external symbol __malloc_dbg
+libcpmtd.lib(xlocale.obj) : error LNK2001: unresolved external symbol __malloc_dbg
+libcpmtd.lib(xwcsxfrm.obj) : error LNK2001: unresolved external symbol __malloc_dbg
+libcpmtd.lib(StlCompareStringA.obj) : error LNK2001: unresolved external symbol __malloc_dbg
+libcpmtd.lib(cout.obj) : error LNK2001: unresolved external symbol __malloc_dbg
+libcpmtd.lib(cin.obj) : error LNK2001: unresolved external symbol __malloc_dbg
+libcpmtd.lib(StlLCMapStringA.obj) : error LNK2001: unresolved external symbol __malloc_dbg
+libcpmtd.lib(locale.obj) : error LNK2001: unresolved external symbol __malloc_dbg
+BTree.obj : error LNK2001: unresolved external symbol __malloc_dbg
+DiskAVL.obj : error LNK2001: unresolved external symbol __malloc_dbg
+Lab 4 BTree.obj : error LNK2001: unresolved external symbol __malloc_dbg
+libcpmtd.lib(locale0.obj) : error LNK2001: unresolved external symbol __malloc_dbg
+libcpmtd.lib(StlCompareStringA.obj) : error LNK2001: unresolved external symbol __CrtDbgReportW
+libcpmtd.lib(locale.obj) : error LNK2001: unresolved external symbol __CrtDbgReportW
+libcpmtd.lib(wlocale.obj) : error LNK2001: unresolved external symbol __CrtDbgReportW
+libcpmtd.lib(xlocale.obj) : error LNK2001: unresolved external symbol __CrtDbgReportW
+libcpmtd.lib(xmbtowc.obj) : error LNK2001: unresolved external symbol __CrtDbgReportW
+libcpmtd.lib(syserror.obj) : error LNK2001: unresolved external symbol __CrtDbgReportW
+libcpmtd.lib(cout.obj) : error LNK2001: unresolved external symbol __CrtDbgReportW
+libcpmtd.lib(cin.obj) : error LNK2001: unresolved external symbol __CrtDbgReportW
+libcpmtd.lib(StlLCMapStringA.obj) : error LNK2001: unresolved external symbol __CrtDbgReportW
+BTree.obj : error LNK2001: unresolved external symbol __CrtDbgReportW
+DiskAVL.obj : error LNK2001: unresolved external symbol __CrtDbgReportW
+Lab 4 BTree.obj : error LNK2001: unresolved external symbol __CrtDbgReportW
+libcpmtd.lib(stdthrow.obj) : error LNK2001: unresolved external symbol __CrtDbgReportW
+libcpmtd.lib(xlocale.obj) : error LNK2001: unresolved external symbol __calloc_dbg
+Lab 4 BTree.obj : error LNK2001: unresolved external symbol __calloc_dbg
+libcpmtd.lib(_tolower.obj) : error LNK2001: unresolved external symbol __calloc_dbg
+libcpmtd.lib(locale.obj) : error LNK2001: unresolved external symbol __calloc_dbg
+libcpmtd.lib(wlocale.obj) : error LNK2001: unresolved external symbol __calloc_dbg
+libcpmtd.lib(_tolower.obj) : error LNK2019: unresolved external symbol __wcsdup_dbg referenced in function __Getctype
+libcpmtd.lib(xstrcoll.obj) : error LNK2001: unresolved external symbol __wcsdup_dbg
+libcpmtd.lib(locale.obj) : error LNK2019: unresolved external symbol __realloc_dbg referenced in function "private: static void __cdecl std::locale::_Locimp::_Locimp_Addfac(class std::locale::_Locimp *,class std::locale::facet *,unsigned int)" (?_Locimp_Addfac@_Locimp@locale@std@@CAXPAV123@PAVfacet@23@I@Z)
+C:\Users\Kaylee\Documents\CSE stuff\EECS 2510 Non Linear\Projects\Lab 4 BTree\Debug\Lab 4 BTree.exe : fatal error LNK1120: 6 unresolved externals

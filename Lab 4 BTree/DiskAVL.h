@@ -3,8 +3,6 @@ Kaylee Gabus
 EECS 2510 Spring 2017
 Purpose: Header file for disk based AVL tree.*/
 
-
-
 #pragma once
 #include <string>
 #include <fstream>
@@ -16,18 +14,14 @@ struct DiskAVLNode
 	int nodeNumber = 0;
 	char key[50];
 	int BF = 0;
-	int counts = 1;
+	int freqCounts = 1;
 	int LeftChild = 0;
 	int RightChild = 0;
-
 };
 
 class DiskAVL
 {
 public:
-	int treeRoot = 0;
-	
-
 	DiskAVL(string filePath);
 	~DiskAVL();
 
@@ -39,10 +33,8 @@ public:
 	int getReads();
 	int getWrites();
 
-
-	//todo: comment avl header
 private:
-
+	int treeRoot = 0;
 	int nodeCount = 0;
 	int readCount = 0;
 	int writeCount = 0;
@@ -59,7 +51,6 @@ private:
 
 	DiskAVLNode readNode(int readNodeNumber);
 	void writeNode(DiskAVLNode node);
-	void traverseAndSum(DiskAVLNode *node);
 	void insertKey(char keyToInsert[50]);
 	void findTreeHeight(DiskAVLNode node, int height);
 };

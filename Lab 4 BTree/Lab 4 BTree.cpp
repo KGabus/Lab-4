@@ -15,8 +15,8 @@ Purpose: Defines the entry point for the console application.
 #include "BTree.h"
 //todo: comment everything
 using namespace std;
-//todo: clean up and remove stuff from old project
-string filePath = "shakespeare.txt";		//set input file path here
+
+string filePath = "C:\\Users\\Kaylee\\Desktop\\Text Files\\shakespeare.txt";		//set input file path here
 
 double elapsedTime;
 double overheadTime;
@@ -92,7 +92,7 @@ int main()
 
 		switch (i)
 		{	//output runtimes for the trees
-		case 0: overheadTime = elapsedTime; cout << overheadTime << "\nStarting AVL: "; break;
+		case 0: overheadTime = elapsedTime; cout << overheadTime << "s\nStarting AVL: "; break;
 		case 1: cout << elapsedTime - overheadTime << "s runtime. \nStarting BTree: "; AVL.collectTreeMetrics();  break;
 		case 2: cout << elapsedTime - overheadTime << "s runtime." << endl; BTree.collectTreeMetrics(); break;
 		}
@@ -100,8 +100,8 @@ int main()
 	}
 	inFile.close();
 
-	cout << "Tree Statistics: \n" << endl;	
-	cout << setw(15) << "Nodes:" << setw(9) << "Words:" << setw(10) << "Height:" << setw(10) << "Reads:" << setw(10) << "Writes:" << setw(19) << "Loading Factor:" << endl;
+	cout << "\nTree Statistics:" << endl;			//output tree statistics
+	cout << setw(14) << "Nodes:" << setw(10) << "Words:" << setw(10) << "Height:" << setw(10) << "Reads:" << setw(10) << "Writes:" << setw(19) << "Loading Factor:" << endl;
 	cout << "AVL:   " << setw(7) << AVL.getNodeCount() << setw(10) << AVL.getTotalWordCount() << setw(10) << AVL.getTreeHeight() << setw(10) << AVL.getReads() << setw(10) << AVL.getWrites() << setw(19) << "n/a" << endl;
 	cout << "BTree: " << setw(7) << BTree.getNodeCount() << setw(10) << BTree.getTotalWordCount() << setw(10) << BTree.getTreeHeight() << setw(10) << BTree.getReads() << setw(10) << BTree.getWrites() << setw(18) << setprecision(2) << BTree.getLoadingFactor() << "%" << endl;
 	

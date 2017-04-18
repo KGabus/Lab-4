@@ -1,7 +1,8 @@
 /*AVL.cpp
 Kaylee Gabus
 EECS 2510 Spring 2017
-Purpose: Creates a disk based AVL Tree. Not fully implemented, only supports insert.*/
+Purpose: Creates a disk based AVL Tree. Not fully implemented, only supports insert.
+			Keeps track of reads, writes, tree height, number of nodes, and number of items inserted.*/
 
 #include "stdafx.h"
 #include <string>
@@ -10,7 +11,7 @@ Purpose: Creates a disk based AVL Tree. Not fully implemented, only supports ins
 //todo: comment avl cpp
 
 DiskAVL::DiskAVL(string file)
-{
+{	//opens/creates the file that which will hold the tree
 	filePath = file;
 	AVLFile.open(filePath, std::ios::binary | std::ios::trunc | std::ios::in | std::ios::out);
 
@@ -19,7 +20,7 @@ DiskAVL::DiskAVL(string file)
 }
 
 DiskAVL::~DiskAVL()
-{
+{	//closes and deletes the tree file
 	AVLFile.close();
 	if (filePath != "")
 		remove(filePath.c_str());
@@ -33,18 +34,17 @@ void DiskAVL::insert(char keyToInsert[50])
 void DiskAVL::collectTreeMetrics()
 {	//finds tree height, total word count, and file size
 	//read, write, and node counts are all set during tree building
-
 	if (treeRoot == 0) return;
 
-	int reads = readCount;		//save the previous values so they only reflect tree building 
+	int reads = readCount;						//save the previous values so they only reflect tree building 
 	int writes = writeCount;
 
 	findTreeHeight(readNode(treeRoot), 1);		//sets total number of words and tree height
 	
 	AVLFile.seekg(0, ios::end);
-	fileSize = AVLFile.tellg();		//returns file size in bytes
+	fileSize = AVLFile.tellg();					//returns file size in bytes
 
-	readCount = reads;			//restore previous values
+	readCount = reads;							//restore previous values
 	writeCount = writes;
 }
 
@@ -55,8 +55,6 @@ int DiskAVL::getTotalWordCount()
 
 int DiskAVL::getTreeHeight()
 {
-	
-
 	return treeHeight;
 }
 
@@ -102,13 +100,11 @@ void DiskAVL::insertKey(char keyToInsert[50])
 {	//inserts a value into the tree
 	//if value isn't already present, create new node and adjust balance factors as needed 
 	//if it is, increment it's count
+	int insertedNodeNumber;							//saves the node number of the node to be added
 
-	int insertedNodeNumber;					//saves the node number of the node to be added
-
-	int lastBalancedNode, B, lastBalancedParent;	//todo: lastBalancedPointer = A, lastBalancedParent = F
-	int currentNode, currentNodeParent;		//todo: p, q also these need renamed at some point
-	int C, CL, CR;
-	int  displacement;             // displacement; Used to adjust BFs
+	int lastBalancedNode, B, lastBalancedParent;	//these will be used to refer to nodes 
+	int currentNode, currentNodeParent;				//though out the rotation and insert process
+	int  displacement;								// displacement; Used to adjust BFs
 
 	if (treeRoot == 0)
 	{	//the tree is empty, make a new node and set it as the root
@@ -116,7 +112,7 @@ void DiskAVL::insertKey(char keyToInsert[50])
 
 		nodeA.nodeNumber = 1;
 		nodeA.BF = 0;
-		nodeA.counts = 1;
+		nodeA.freqCounts = 1;
 		strcpy_s(nodeA.key, keyToInsert);
 		nodeA.LeftChild = 0;
 		nodeA.RightChild = 0;
@@ -142,7 +138,7 @@ void DiskAVL::insertKey(char keyToInsert[50])
 	{// search tree for insertion point
 		if (strcmp(keyToInsert, nodeA.key) == 0)
 		{	//if the node if found, increment it's count
-			nodeA.counts++;
+			nodeA.freqCounts++;
 			writeNode(nodeA);
 			return;
 		}
@@ -160,13 +156,12 @@ void DiskAVL::insertKey(char keyToInsert[50])
 	}
 
 	//currentNode is now NULL, but currentNodeParent points at the last node where the key should be inserted as a leaf
-
-	//create and write a new node
-	strcpy_s(nodeA.key, keyToInsert);
+	
+	strcpy_s(nodeA.key, keyToInsert);							//create and write a new node
 	nodeA.LeftChild = 0;
 	nodeA.RightChild = 0;
-	nodeA.BF = 0;    // Leaves are always balanced by definition
-	insertedNodeNumber = nodeA.nodeNumber = nodeCount + 1;		//todo: insertedNodeNumber may not be needed
+	nodeA.BF = 0;												// Leaves are always balanced by definition
+	insertedNodeNumber = nodeA.nodeNumber = nodeCount + 1;		//save the value of the node that was just created for future use
 	writeNode(nodeA);
 
 	nodeCount++;
@@ -195,12 +190,12 @@ void DiskAVL::insertKey(char keyToInsert[50])
 	} // B is identified as the last balanced node’s child
 
 
-	while (currentNode != insertedNodeNumber)  // currentNode is now one node below lastBalancedNode. 
-	{   //  Adjust from here to the insertion point.  Don’t do anything to new node 
+	while (currentNode != insertedNodeNumber)  //currentNode is now one node below lastBalancedNode. 
+	{   //Adjust from here to the insertion point.  Don’t do anything to new node 
 		nodeA = readNode(currentNode);
 
 		if (strcmp(keyToInsert, nodeA.key) > 0)
-		{ // adjust BF and move forward
+		{	//adjust BF and move forward
 			nodeA.BF = -1;
 			currentNode = nodeA.RightChild;
 		}
@@ -217,16 +212,16 @@ void DiskAVL::insertKey(char keyToInsert[50])
 	// BALANCE, into an “unacceptable IMBALANCE”, or if it is still
 	// “BALANCED ENOUGH”.
 	nodeA = readNode(lastBalancedNode);
-	if (nodeA.BF == 0) // Tree WAS completely balanced before the insert.
-	{             // The insert pushed it to slight (acceptable) imbalance
+	if (nodeA.BF == 0)				// Tree WAS completely balanced before the insert.
+	{								// The insert pushed it to slight (acceptable) imbalance
 		nodeA.BF = displacement;    // Set the BF to +/- 1 (displacement tells direction)
 		writeNode(nodeA);
-		return;     // This is close enough to live with, so exit now
+		return;						// This is close enough to live with, so exit now
 	}
 
-	if (nodeA.BF == -displacement) // If the tree had a slight imbalance the OTHER way, 
-	{               // then did the insertion throw the tree INTO complete
-		nodeA.BF = 0;   // balance? If so, set the BF to zero and return
+	if (nodeA.BF == -displacement)	// If the tree had a slight imbalance the OTHER way, 
+	{								// then did the insertion throw the tree INTO complete
+		nodeA.BF = 0;				// balance? If so, set the BF to zero and return
 		writeNode(nodeA);
 		return;
 	}
@@ -234,8 +229,8 @@ void DiskAVL::insertKey(char keyToInsert[50])
 
 	nodeB = readNode(B);		
 
-	if (displacement == 1) // this is a left imbalance.
-	{
+	if (displacement == 1) 
+	{	//this is a left imbalance.
 		if (nodeB.BF == 1) // LL rotation
 		{	//lastBalancedPointer's left child become's its grandchild's right child
 			//its grandchild moves up to become it's left child
@@ -246,12 +241,9 @@ void DiskAVL::insertKey(char keyToInsert[50])
 			writeNode(nodeA);
 			writeNode(nodeB);
 		}
-		else  // LR Rotation: three cases (structurally the same; BFs vary)
-		{
-			nodeC = readNode(nodeB.RightChild); // C is B's right child
-			CL = nodeC.LeftChild; // CL and CR are C's left and right children
-			CR = nodeC.RightChild;
-
+		else  
+		{	//LR Rotation: three cases (structurally the same; BFs vary)
+			nodeC= readNode(nodeB.RightChild); //C is B's right child
 
 			nodeA.LeftChild = nodeC.RightChild;
 			nodeB.RightChild = nodeC.LeftChild;
@@ -274,9 +266,9 @@ void DiskAVL::insertKey(char keyToInsert[50])
 
 			B = nodeC.nodeNumber;     // B is the root of the now-rebalanced subtree (recycle)
 		} // end of else (LR Rotation)
-	} // end of “if (d = +1)”
-	else // d=-1.  This is a right imbalance
-	{
+	} // end of left rotations
+	else 
+	{	//d=-1.  This is a right imbalance
 		if (nodeB.BF == -1) // RR rotation
 		{
 			nodeA.RightChild = nodeB.LeftChild;
@@ -290,8 +282,6 @@ void DiskAVL::insertKey(char keyToInsert[50])
 		{	//lastBalancedNode's right child become's its grandchild's left child
 			//its grandchild moves up to become it's right child
 			nodeC = readNode(nodeB.LeftChild); // C is B's right child
-			CL = nodeC.LeftChild; // CL and CR are C's left and right children
-			CR = nodeC.RightChild;
 
 			nodeA.RightChild = nodeC.LeftChild;
 			nodeB.LeftChild = nodeC.RightChild;
@@ -305,29 +295,29 @@ void DiskAVL::insertKey(char keyToInsert[50])
 			case 1: nodeB.BF = -1; nodeA.BF = 0; break;
 			}
 
-			nodeC.BF = 0; // Regardless, C is now balanced
+			nodeC.BF = 0;			//Regardless, C is now balanced
 
 			writeNode(nodeA);		//write the adjustments to the file
 			writeNode(nodeB);
 			writeNode(nodeC);
 
-			B = nodeC.nodeNumber;     // B is the root of the now-rebalanced subtree (recycle)
+			B = nodeC.nodeNumber;	//B is the root of the now-rebalanced subtree (recycle)
 		}
 	}
 
 	// Regardless, the subtree rooted at B has been rebalanced, and needs to
 	// be the new child of lastBalancedParent.
 
-	if (lastBalancedParent == 0) { treeRoot = B; return; } // B is the tree’s new root - done
+	if (lastBalancedParent == 0) { treeRoot = B; return; }	//B is the tree’s new root
 															  
-	nodeC = readNode(lastBalancedParent);				//connect the balanced subtree to the rest of the tree
+	nodeC = readNode(lastBalancedParent);					//connect the balanced subtree to the rest of the tree
 	if (lastBalancedNode == nodeC.LeftChild) { nodeC.LeftChild = B; writeNode(nodeC); return; }
 	if (lastBalancedNode == nodeC.RightChild) { nodeC.RightChild = B; writeNode(nodeC); return; }
 }
 
 void DiskAVL::findTreeHeight(DiskAVLNode node, int height)
-{
-	totalWordsCount += node.counts;
+{	//recursively travels through the tree to find the longest path from root to leaf
+	totalWordsCount += node.freqCounts;
 	if (node.LeftChild != 0)
 		findTreeHeight(readNode(node.LeftChild), height + 1);
 
