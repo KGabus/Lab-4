@@ -8,7 +8,6 @@ Purpose: Creates a disk based AVL Tree. Not fully implemented, only supports ins
 #include <string>
 #include <iostream>
 #include "DiskAVL.h"
-//todo: comment avl cpp
 
 DiskAVL::DiskAVL(string file)
 {	//opens/creates the file that which will hold the tree

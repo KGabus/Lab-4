@@ -13,7 +13,7 @@ Purpose: Defines the entry point for the console application.
 #include <ctime>
 #include "DiskAVL.h"
 #include "BTree.h"
-//todo: comment everything
+
 using namespace std;
 
 string filePath = "C:\\Users\\Kaylee\\Desktop\\Text Files\\shakespeare.txt";		//set input file path here
@@ -33,7 +33,7 @@ int main()
 
 	cout << "Current BTree Degree: " << DEGREE << endl;
 
-	char chari[50]; // assumes no word is longer than 49
+	char chari[MAXWORDSIZE]; //defined in BTree header
 	int iPtr;
 	bool IsDelimiter = false, WasDelimiter = false;
 
@@ -58,33 +58,31 @@ int main()
 
 		iPtr = 0;
 
-		startTime = clock();						//Start timer
+		startTime = clock();		//Start timer
 
 		inFile.get(c);
 
 		while (!inFile.eof())
 		{
 			IsDelimiter = (c == 32 || c == 10 || c == 13 || c == 9 || c == '.' || c == ',' || c == '!' || c == ';' || c == ':' || c == '(' || c == ')');
-			if (IsDelimiter && !WasDelimiter)   // if THIS character is a delimiter and the last character WASN’T 
+			if (IsDelimiter && !WasDelimiter)		// if THIS character is a delimiter and the last character WASN’T 
 			{
 				WasDelimiter = true;
-				if (i == 0);		//do nothing, used to collect overhead time info
-				if (i == 1) AVL.insert(chari);  	// insert it in the AVL Tree 
-				if (i == 2) BTree.insert(chari);
+				if (i == 0);						//do nothing, used to collect overhead time info
+				if (i == 1) AVL.insert(chari);  	//insert it in the AVL Tree 
+				if (i == 2) BTree.insert(chari);	//insert it in the BTree
 
 				for (int i = 0; i < sizeof(chari); i++) chari[i] = '\0'; // zero the word         
 				iPtr = 0;
 			}
-			else if (!IsDelimiter)  // if this isn’t a delimiter, keep going 
-			{
+			else if (!IsDelimiter)
+			{//if this isn’t a delimiter, keep going 
 				chari[iPtr] = c;
 				iPtr++;
 			}
-			else if (IsDelimiter && WasDelimiter)
-			{
-				// Do nothing -- two consecutive delimiters. 
-			}
-			WasDelimiter = IsDelimiter;   // for the NEXT iteration     
+			else if (IsDelimiter && WasDelimiter) {}	//Do nothing -- two consecutive delimiters. 
+
+			WasDelimiter = IsDelimiter;					//for the NEXT iteration     
 			inFile.get(c);
 		}
 		
