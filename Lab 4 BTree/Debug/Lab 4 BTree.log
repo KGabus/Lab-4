@@ -1,4 +1,12 @@
-﻿  Lab 4 BTree.cpp
+﻿  stdafx.cpp
+  Lab 4 BTree.cpp
 c:\users\kaylee\documents\cse stuff\eecs 2510 non linear\projects\lab 4 btree\lab 4 btree\lab 4 btree.cpp(71): warning C4390: ';': empty controlled statement found; is this the intent?
-  Lab 4 BTree.vcxproj -> C:\Users\Kaylee\Documents\CSE stuff\EECS 2510 Non Linear\Projects\Lab 4 BTree\Debug\Lab 4 BTree.exe
-  Lab 4 BTree.vcxproj -> C:\Users\Kaylee\Documents\CSE stuff\EECS 2510 Non Linear\Projects\Lab 4 BTree\Debug\Lab 4 BTree.pdb (Full PDB)
+  DiskAVL.cpp
+c:\users\kaylee\documents\cse stuff\eecs 2510 non linear\projects\lab 4 btree\lab 4 btree\diskavl.cpp(23): error C2065: 'filePath': undeclared identifier
+c:\users\kaylee\documents\cse stuff\eecs 2510 non linear\projects\lab 4 btree\lab 4 btree\diskavl.cpp(43): warning C4244: '=': conversion from 'std::streamoff' to 'unsigned int', possible loss of data
+  BTree.cpp
+c:\users\kaylee\documents\cse stuff\eecs 2510 non linear\projects\lab 4 btree\lab 4 btree\btree.cpp(20): error C2065: 'filepath': undeclared identifier
+c:\users\kaylee\documents\cse stuff\eecs 2510 non linear\projects\lab 4 btree\lab 4 btree\btree.cpp(21): error C2664: 'int remove(const char *)': cannot convert argument 1 from 'std::string' to 'const char *'
+  c:\users\kaylee\documents\cse stuff\eecs 2510 non linear\projects\lab 4 btree\lab 4 btree\btree.cpp(21): note: No user-defined-conversion operator available that can perform this conversion, or the operator cannot be called
+c:\users\kaylee\documents\cse stuff\eecs 2510 non linear\projects\lab 4 btree\lab 4 btree\btree.cpp(77): warning C4244: '=': conversion from 'std::streamoff' to 'unsigned int', possible loss of data
+  Generating Code...

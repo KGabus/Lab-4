@@ -9,8 +9,9 @@ Purpose: Creates a disk based AVL Tree. Not fully implemented, only supports ins
 #include "DiskAVL.h"
 //todo: comment avl cpp
 
-DiskAVL::DiskAVL(string filePath)
+DiskAVL::DiskAVL(string file)
 {
+	filePath = file;
 	AVLFile.open(filePath, std::ios::binary | std::ios::trunc | std::ios::in | std::ios::out);
 
 	if (AVLFile.fail())
@@ -20,6 +21,8 @@ DiskAVL::DiskAVL(string filePath)
 DiskAVL::~DiskAVL()
 {
 	AVLFile.close();
+	if (filePath != "")
+		remove(filePath.c_str());
 }
 
 void DiskAVL::insert(char keyToInsert[50])

@@ -16,7 +16,7 @@ Purpose: Defines the entry point for the console application.
 //todo: comment everything
 using namespace std;
 //todo: clean up and remove stuff from old project
-string filePath = "C:\\Users\\Kaylee\\Desktop\\Text Files\\shakespeare.txt";		//set input file path here
+string filePath = "shakespeare.txt";		//set input file path here
 
 double elapsedTime;
 double overheadTime;
@@ -28,8 +28,8 @@ clock_t startTime;
 int main()
 {
 	char c;
-	DiskAVL AVL("C:\\Users\\Kaylee\\Desktop\\AVL Tree File.txt");
-	BTree BTree("C:\\Users\\Kaylee\\Desktop\\BTree File.txt");
+	DiskAVL AVL("Gabus AVL Tree File.txt");
+	BTree BTree("Gabus BTree File.txt");
 
 	cout << "Current BTree Degree: " << DEGREE << endl;
 

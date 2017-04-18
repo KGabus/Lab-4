@@ -5,9 +5,9 @@
 //todo: comment btree cpp
 using namespace std;
 
-BTree::BTree(std::string filePath)
+BTree::BTree(std::string file)
 {
-
+	filePath = file;
 	BTreeFile.open(filePath, std::ios::binary | std::ios::trunc | std::ios::in | std::ios::out);
 
 	if (BTreeFile.fail())
@@ -17,6 +17,12 @@ BTree::BTree(std::string filePath)
 BTree::~BTree()
 {
 	BTreeFile.close();
+	if (filePath != "")
+	{
+		//char* file = filePath.c_str();
+		remove(filePath.c_str());
+	}
+		
 }
 
 void BTree::insert(char insertWord[MAXWORDSIZE])
@@ -104,7 +110,7 @@ BTreeNode BTree::readNode(int nodeNumber)
 void BTree::insertKey(char insertKey[MAXWORDSIZE])
 {	//todo: comment here
 	totalWordsCount++;
-
+	//todo: function insertKey and variable insertKey is confsuing. rename something
 	if (treeRoot == 0)
 	{	//if he tree is empty, make a new node, set it as the root, and return
 		BTreeNode rootNode;
@@ -133,7 +139,7 @@ void BTree::insertKey(char insertKey[MAXWORDSIZE])
 			return;
 		}
 	}
-	//todo: uncomment this
+
 	if (rootNode.keyCount == 2 * DEGREE - 1)
 	{	//if the root is full, split it
 		BTreeNode newRoot;
@@ -180,7 +186,6 @@ void BTree::insertKeyNonFull(BTreeNode node, char insertKey[MAXWORDSIZE])
 
 		keyPos++;
 
-		// todo: this is probs where the duplicate check should happen
 		BTreeNode possibleInsertNode = readNode(node.children[keyPos]);
 		for (int keyPos = possibleInsertNode.keyCount; keyPos >= 1; keyPos--)
 		{	//check to see if key is present in node

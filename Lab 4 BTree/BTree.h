@@ -2,7 +2,7 @@
 #include <string>
 #include <fstream>
 
-#define DEGREE 5						//----------------------------Set degree of tree here
+#define DEGREE 6						//----------------------------Set degree of tree here
 #define MAXWORDSIZE 50
 
 struct BTreeNode
@@ -20,7 +20,7 @@ using namespace std;
 class BTree
 {
 public:
-	BTree(std::string filePath);
+	BTree(std::string file);
 	~BTree();
 	
 	void insert(char insertKey[MAXWORDSIZE]);
@@ -41,6 +41,8 @@ private:
 	int treeHeight = 0;
 	double loadingFactor = 0;
 	unsigned int fileSize = 0;
+	string filePath = "";
+	
 
 	int treeRoot = 0;
 

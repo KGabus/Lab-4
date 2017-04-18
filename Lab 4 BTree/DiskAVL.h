@@ -26,6 +26,7 @@ class DiskAVL
 {
 public:
 	int treeRoot = 0;
+	
 
 	DiskAVL(string filePath);
 	~DiskAVL();
@@ -48,6 +49,7 @@ private:
 	int totalWordsCount = 0;
 	int treeHeight = 0;
 	unsigned int fileSize = 0;
+	string filePath = "";
 
 	DiskAVLNode nodeA;
 	DiskAVLNode nodeB;
