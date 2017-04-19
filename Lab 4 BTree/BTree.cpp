@@ -60,6 +60,11 @@ int BTree::getWrites()
 	return writeCount;
 }
 
+int BTree::getFileSize()
+{
+	return fileSize;
+}
+
 double BTree::getLoadingFactor()
 {	//once the tree has been built, 
 	//finds and returns the percentage of keys used vs. the tree's total key capacity
@@ -195,7 +200,7 @@ void BTree::insertKeyNonFull(BTreeNode node, char keyToInsert[MAXWORDSIZE])
 	else
 	{	//traverse until a leaf is found
 		while (keyPos >= 1 && strcmp(keyToInsert, node.keys[keyPos]) < 0)
-			keyPos--;			//while the key to insert is less than the current key, keep comparing until it's not or we run out of keys
+			keyPos--;//while the key to insert is less than the current key, keep comparing until it's not or we run out of keys
 
 		keyPos++;
 

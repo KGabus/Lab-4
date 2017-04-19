@@ -32,6 +32,7 @@ public:
 	int getNodeCount();
 	int getReads();
 	int getWrites();
+	int getFileSize();
 
 private:
 	int treeRoot = 0;

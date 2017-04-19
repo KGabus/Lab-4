@@ -7,7 +7,7 @@ Purpose: Header file for Btree.*/
 #include <string>
 #include <fstream>
 
-#define DEGREE 6						//----------------------------Set degree of tree here
+#define DEGREE 5						//----------------------------Set degree of tree here
 #define MAXWORDSIZE 50					//MAXWORDSIZE - 1 = the largest number of characters per each key. 
 															//if changed, AVLNode char array size should also be adjusted
 struct BTreeNode
@@ -34,6 +34,7 @@ public:
 	int getNodeCount();
 	int getReads();
 	int getWrites();
+	int getFileSize();
 	double getLoadingFactor();
 	void collectTreeMetrics();
 	

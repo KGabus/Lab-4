@@ -72,6 +72,11 @@ int DiskAVL::getWrites()
 	return writeCount;
 }
 
+int DiskAVL::getFileSize()
+{
+	return fileSize;
+}
+
 void DiskAVL::writeNode(DiskAVLNode node)
 {	//writes the node to the tree's file 
 	AVLFile.seekp(node.nodeNumber * sizeof(DiskAVLNode));		//find where to write to the file based on node size and number

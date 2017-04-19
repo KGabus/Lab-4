@@ -16,7 +16,7 @@ Purpose: Defines the entry point for the console application.
 
 using namespace std;
 
-string filePath = "C:\\Users\\Kaylee\\Desktop\\Text Files\\shakespeare.txt";		//set input file path here
+string filePath = "C:\\Users\\Kaylee\\Desktop\\Text Files\\months.txt";		//set input file path here
 
 double elapsedTime;
 double overheadTime;
@@ -28,8 +28,8 @@ clock_t startTime;
 int main()
 {
 	char c;
-	DiskAVL AVL("Gabus AVL Tree File.txt");
-	BTree BTree("Gabus BTree File.txt");
+	DiskAVL AVL("C:\\Users\\Kaylee\\Desktop\\Gabus AVL Tree File.txt");
+	BTree BTree("C:\\Users\\Kaylee\\Desktop\\Gabus BTree File.txt");
 
 	cout << "Current BTree Degree: " << DEGREE << endl;
 
@@ -99,9 +99,9 @@ int main()
 	inFile.close();
 
 	cout << "\nTree Statistics:" << endl;			//output tree statistics
-	cout << setw(14) << "Nodes:" << setw(10) << "Words:" << setw(10) << "Height:" << setw(10) << "Reads:" << setw(10) << "Writes:" << setw(19) << "Loading Factor:" << endl;
-	cout << "AVL:   " << setw(7) << AVL.getNodeCount() << setw(10) << AVL.getTotalWordCount() << setw(10) << AVL.getTreeHeight() << setw(10) << AVL.getReads() << setw(10) << AVL.getWrites() << setw(19) << "n/a" << endl;
-	cout << "BTree: " << setw(7) << BTree.getNodeCount() << setw(10) << BTree.getTotalWordCount() << setw(10) << BTree.getTreeHeight() << setw(10) << BTree.getReads() << setw(10) << BTree.getWrites() << setw(18) << setprecision(2) << BTree.getLoadingFactor() << "%" << endl;
+	cout << setw(14) << "Nodes:" << setw(10) << "Words:" << setw(10) << "Height:" << setw(10) << "Reads:" << setw(10) << "Writes:" << setw(18) << "File Size (b):" << setw(19) << "Loading Factor:" << endl;
+	cout << "AVL:   " << setw(7) << AVL.getNodeCount() << setw(10) << AVL.getTotalWordCount() << setw(10) << AVL.getTreeHeight() << setw(10) << AVL.getReads() << setw(10) << AVL.getWrites() << setw(18) << AVL.getFileSize() << setw(19) << "n/a" << endl;
+	cout << "BTree: " << setw(7) << BTree.getNodeCount() << setw(10) << BTree.getTotalWordCount() << setw(10) << BTree.getTreeHeight() << setw(10) << BTree.getReads() << setw(10) << BTree.getWrites() << setw(18) << BTree.getFileSize() << setw(18) << setprecision(2) << BTree.getLoadingFactor() << "%" << endl;
 	
 	return 0;
 }
